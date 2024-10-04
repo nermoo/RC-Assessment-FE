@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Select, Button, Form, Divider, Flex } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { Location } from '@/constants/Enums';
+
 import './searchBar.css';
 
 const { Option } = Select;
@@ -38,10 +40,11 @@ const PropertySearchBar = () => {
                 // style={{ width: 200, height:50 }}
                 allowClear
             >
-                <Option value="new_york">New York</Option>
-                <Option value="los_angeles">Los Angeles</Option>
-                <Option value="chicago">Chicago</Option>
-                <Option value="houston">Houston</Option>
+               {Object.values(Location).map((loc) => (
+                  <Option key={loc} value={loc}>
+                    {loc}
+                  </Option>
+                ))}
             </Select>
             </Form.Item>
 

@@ -4,8 +4,13 @@ const AppApi = createApi({
   reducerPath: "AppApi",
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:8080/',
+    prepareHeaders: (headers) => {
+      headers.set('Content-Type', 'application/json');
+      headers.set('Accept', 'application/json');
+      return headers;
+    },
   }),
-  tagTypes: ["files", "collections", "chats"],  // invalidation array
+  tagTypes: [], 
   endpoints: () => ({}),
 });
 

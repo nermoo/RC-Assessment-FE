@@ -1,14 +1,14 @@
 'use client'
 import React, { useEffect } from 'react';
 import PropertySearchBar from './components/home/searchBar/searchBar';
-import PropertyCard from './components/home/propertyCard/propertyCard';
-import { useGetPaymentInfoMutation } from '@/lib/features/properties/propertyApi';
+import CardList from './components/home/cardList';
+import { useGetAllPropertiesMutation } from '@/lib/features/properties/propertyApi';
 
 const Home = () => {
-  const [getPaymentInfo, { data, isLoading, isError }] = useGetPaymentInfoMutation();
+  const [getAllProperties, { data, isLoading, isError }] = useGetAllPropertiesMutation();
 
   useEffect(()=>{
-    getPaymentInfo('213add');
+    getAllProperties();
   },[])
 
   console.log(data,isLoading,isError);
@@ -18,8 +18,8 @@ const Home = () => {
   return(
   <div>
     <PropertySearchBar/>
-    <div className='m-6'>
-    <PropertyCard/>
+    <div className='my-12 mx-52'>
+    <CardList/>
     </div>
   </div>
   );
