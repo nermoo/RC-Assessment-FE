@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect } from 'react';
-import { Button } from 'antd';
+import PropertySearchBar from './components/home/searchBar/searchBar';
+import PropertyCard from './components/home/propertyCard/propertyCard';
 import { useGetPaymentInfoMutation } from '@/lib/features/properties/propertyApi';
 
 const Home = () => {
@@ -15,8 +16,11 @@ const Home = () => {
 
   
   return(
-  <div className="App">
-    <Button type="primary">Button</Button>
+  <div>
+    <PropertySearchBar/>
+    <div className='m-6'>
+    <PropertyCard/>
+    </div>
   </div>
   );
 };

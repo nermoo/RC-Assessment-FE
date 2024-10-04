@@ -7,12 +7,9 @@ interface PaymentStatus {
 export const PropertyApi = AppApi.injectEndpoints({
   endpoints: (builder) => ({
     getPaymentInfo: builder.mutation<PaymentStatus, string>({
-      query: (order_id) => ({
-        url: "/Payment",
+      query: () => ({
+        url: "/property",
         method: "GET",
-        params: {
-          order_id,
-        },
       }),
     }),
   }),
