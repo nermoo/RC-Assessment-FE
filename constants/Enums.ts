@@ -1,5 +1,3 @@
-// /src/constants/Enums.ts
-
 export enum Location {
     COLOMBO = "Colombo",
     KANDY = "Kandy",
@@ -15,4 +13,3 @@ export enum Location {
     FOR_SALE = "For Sale",
     FOR_RENT = "For Rent",
   }
-  

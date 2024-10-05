@@ -4,7 +4,7 @@ import { Location, PropertyStatus, PropertyType } from "@/constants/Enums";
 export interface Property {
   id: string;
   title: string;
-  imageUrl: string;
+  image: string;
   slug: boolean;
   location: Location;
   price: number;
@@ -27,11 +27,20 @@ export interface CreateProperty {
 
 export const PropertyApi = AppApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProperties: builder.mutation<Property,void>({
+    getAllProperties: builder.query<Property[],void>({
       query: () => ({
         url: "/property",
         method: "GET",
       }),
+      providesTags: ['property'],
+    }),
+    createProperty: builder.mutation<Property, FormData>({
+      query: (newProperty) => ({
+        url: "/property",
+        method: "POST",
+        body: newProperty,
+      }),
+      invalidatesTags: ['property'],
     }),
   }),
   overrideExisting: false,
@@ -39,4 +48,4 @@ export const PropertyApi = AppApi.injectEndpoints({
 
 // fetch property list, add properties, invalidations
 
-export const { useGetAllPropertiesMutation } = PropertyApi;
+export const { useGetAllPropertiesQuery, useCreatePropertyMutation } = PropertyApi;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Form, Input, Button, Select, Switch, InputNumber, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Location, PropertyStatus, PropertyType } from '@/constants/Enums';
+import { useCreatePropertyMutation } from '@/lib/features/properties/propertyApi';
 
 
 interface AddPropertyModalProps {
@@ -16,19 +17,42 @@ const { Option } = Select;
 const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, handleOk, handleCancel}) => {
   const [form] = Form.useForm();
 
+  const [createProperty, { isLoading }] = useCreatePropertyMutation();
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (values: any) => {
-    console.log('Form values:', values);
-    handleOk(); // Close the modal when the form is submitted
+  const onFinish = async (values: any) => {
+    try {
+      const formData = new FormData();
+      formData.append('title', values.title);
+      formData.append('description', values.description);
+      formData.append('price', values.price);
+      formData.append('area', values.area);
+      formData.append('propertyType', values.type);
+      formData.append('status', values.status);
+      formData.append('location', values.location);
+      formData.append('slug', values.slug);
+      if (values.propertyImg && values.propertyImg.file) {
+        formData.append('propertyImg', values.propertyImg.file.originFileObj);
+      }
+  
+      await createProperty(formData).unwrap();
+  
+      console.log('Property added successfully!');
+      form.resetFields();
+      handleOk();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <Modal
+      loading={isLoading}
       title="Add Property"
       open={isModalOpen}
       onCancel={handleCancel}
-      footer={null} // Remove default footer buttons
+      footer={null}
     >
       <Form
         form={form}
@@ -36,7 +60,7 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
         onFinish={onFinish}
         className="space-y-4"
       >
-        {/* Property Title */}
+
         <Form.Item
           label="Property Title"
           name="title"
@@ -45,7 +69,6 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
           <Input placeholder="Enter property title" />
         </Form.Item>
 
-        {/* Property Description */}
         <Form.Item
           label="Property Description"
           name="description"
@@ -54,7 +77,7 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
           <TextArea rows={4} placeholder="Enter property description" />
         </Form.Item>
 
-        {/* Property Price and Area on the same line */}
+
         <div className="flex gap-4">
         <Form.Item
             label="Property Price (LKR)"
@@ -84,7 +107,6 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
         </Form.Item>
         </div>
 
-        {/* Property Type and Status on the same line */}
         <div className="flex gap-4">
         <Form.Item
             label="Property Type"
@@ -135,7 +157,6 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
         </Form.Item>
         </div>
 
-        {/* Property Image */}
         <Form.Item
           label="Property Image"
           name="propertyImg"
@@ -147,7 +168,6 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
           </Upload>
         </Form.Item>
 
-        {/* Submit Button */}
         <Form.Item>
           <Button type="primary" htmlType="submit" className="w-full">
             Add Property
