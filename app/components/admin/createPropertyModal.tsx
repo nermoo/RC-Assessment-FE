@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Form, Input, Button, Select, Switch, InputNumber, Upload } from 'antd';
+import { Modal, Form, Input, Button, Select, Switch, InputNumber, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { Location, PropertyStatus, PropertyType } from '@/constants/Enums';
 import { useCreatePropertyMutation } from '@/lib/features/properties/propertyApi';
@@ -16,6 +16,21 @@ const { Option } = Select;
 
 const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, handleOk, handleCancel}) => {
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Property added successfully',
+    });
+  };
+
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'Failed to add property. Please try again',
+    });
+  };
 
   const [createProperty, { isLoading }] = useCreatePropertyMutation();
 
@@ -38,17 +53,19 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
       await createProperty(formData).unwrap();
   
       console.log('Property added successfully!');
-      form.resetFields();
+      success();
       handleOk();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      error();
+      console.error(err);
     }
+    form.resetFields();
   };
 
   return (
     <>
+    {contextHolder}
       <Modal
-      loading={isLoading}
       title="Add Property"
       open={isModalOpen}
       onCancel={handleCancel}
@@ -169,7 +186,7 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full">
+          <Button loading={isLoading} type="primary" htmlType="submit" className="w-full">
             Add Property
           </Button>
         </Form.Item>

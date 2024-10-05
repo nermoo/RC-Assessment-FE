@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import StoreProvider from "./StoreProvider";
 import Navbar from "./components/layout/navbar";
+import Footer from "./components/layout/footer";
 
 import "./globals.css";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
           <StoreProvider>
             <Navbar/>
             {children}
+            <Footer/>
           </StoreProvider>
         </AntdRegistry>
       </body>

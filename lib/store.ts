@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
+import PropertyReducer from '@/lib/features/properties/propertySlice';
 import AppApi from './AppApi'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
         [AppApi.reducerPath]:AppApi.reducer,
+        propertyFilter: PropertyReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()

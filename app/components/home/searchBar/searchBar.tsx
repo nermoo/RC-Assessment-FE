@@ -2,22 +2,28 @@ import React, { useState } from 'react';
 import { Select, Button, Form, Divider, Flex } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { Location } from '@/constants/Enums';
+import { useDispatch } from 'react-redux';
+import { setLocation } from '@/lib/features/properties/propertySlice';
+
 
 import './searchBar.css';
 
 const { Option } = Select;
 
 const PropertySearchBar = () => {
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const dispatch = useDispatch();
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
 
-  const handleLocationChange = (value: React.SetStateAction<null>) => {
+  const handleLocationChange = (value: string | null) => {
     setSelectedLocation(value);
   };
 
+  const handleClear = () =>{
+    setSelectedLocation(null);
+  }
+
   const handleSubmit = () => {
-    if (selectedLocation) {
-      alert(`Selected Location: ${selectedLocation}`);
-    }
+      dispatch(setLocation(selectedLocation));
   };
 
   return (
@@ -37,7 +43,7 @@ const PropertySearchBar = () => {
                 placeholder="All Main Locations"
                 onChange={handleLocationChange}
                 className="selectDropdwn"
-                // style={{ width: 200, height:50 }}
+                onClear={handleClear}
                 allowClear
             >
                {Object.values(Location).map((loc) => (

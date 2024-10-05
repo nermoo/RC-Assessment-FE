@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Typography } from 'antd';
 import { EnvironmentOutlined, HomeOutlined } from '@ant-design/icons';
 import { Property } from '@/lib/features/properties/propertyApi';
+import numeral from 'numeral';
 
 import './propertyCard.css'
 
@@ -37,10 +38,10 @@ const PropertyCard: React.FC<Cardprops> = ({property}) => {
       </div>
 
       <div className="flex justify-between items-center mt-4">
-        <Text className="!text-xl font-semibold">{property.price}</Text>
+        <Text className="!text-xl font-semibold">{numeral(property.price).format('0,0')} LKR</Text>
         <div className="flex items-center text-gray-500">
           <HomeOutlined className="mr-1 !text-blue-500" />
-          <span><span className='font-bold'>{property.area}</span> sq ft</span>
+          <span><span className='font-bold'>{numeral(property.area).format('0,0')}</span> sq ft</span>
         </div>
       </div>
     </Card>
