@@ -2,7 +2,7 @@
 import React from 'react';
 import TicketTable from '../components/admin/ticketsTable';
 import PropertyTable from '../components/admin/propertyTable';
-import DashboardCards from '../components/admin/dashboardCard';
+import DashboardCards from '../components/admin/dashboardCards';
 
 
 const PropertyAdminPage: React.FC = () => {
