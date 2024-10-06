@@ -42,10 +42,17 @@ export const PropertyApi = AppApi.injectEndpoints({
       }),
       invalidatesTags: ['property'],
     }),
+    deleteProperty: builder.mutation<{ message: string }, string>({
+      query: (id) => ({
+        url: `/property/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ['property'],  // Invalidates cache to update the property list
+    }),
   }),
   overrideExisting: false,
 });
 
 // fetch property list, add properties, invalidations
 
-export const { useGetAllPropertiesQuery, useCreatePropertyMutation } = PropertyApi;
+export const { useGetAllPropertiesQuery, useCreatePropertyMutation, useDeletePropertyMutation } = PropertyApi;

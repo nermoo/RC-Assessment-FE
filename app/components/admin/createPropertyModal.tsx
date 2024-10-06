@@ -49,10 +49,7 @@ const CreatePropertyModal: React.FC<AddPropertyModalProps> = ({isModalOpen, hand
       if (values.propertyImg && values.propertyImg.file) {
         formData.append('propertyImg', values.propertyImg.file.originFileObj);
       }
-  
       await createProperty(formData).unwrap();
-  
-      console.log('Property added successfully!');
       success();
       handleOk();
     } catch (err) {

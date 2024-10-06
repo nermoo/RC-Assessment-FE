@@ -38,11 +38,14 @@ const TicketTable: React.FC = () => {
   ];
 
   return (
+    <>
+    <div className='text-slate-700 font-semibold mb-3'>Customer Tickets Overview</div>
     <CommonTable 
       dataSource={SupportTickets} 
       columns={supportTableColumns} 
       paginationConfig={{ hideOnSinglePage: true, pageSize: 4 }} 
     />
+    </>
   );
 };
 
