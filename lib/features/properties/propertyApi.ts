@@ -13,18 +13,6 @@ export interface Property {
   area: number;
 }
 
-export interface CreateProperty {
-  title: string;
-  description: string;
-  price: number;
-  area: number;
-  type: PropertyType;
-  status: PropertyStatus;
-  location: Location;
-  slug: boolean; 
-  propertyImg: File | null;        
-}
-
 export const PropertyApi = AppApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProperties: builder.query<Property[],void>({
@@ -47,12 +35,10 @@ export const PropertyApi = AppApi.injectEndpoints({
         url: `/property/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ['property'],  // Invalidates cache to update the property list
+      invalidatesTags: ['property'],
     }),
   }),
   overrideExisting: false,
 });
-
-// fetch property list, add properties, invalidations
 
 export const { useGetAllPropertiesQuery, useCreatePropertyMutation, useDeletePropertyMutation } = PropertyApi;

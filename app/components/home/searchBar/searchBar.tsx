@@ -54,7 +54,6 @@ const PropertySearchBar = () => {
             </Select>
             </Form.Item>
 
-            {/* Status Dropdown (Not functional) */}
             <Form.Item >
             <div className='w-1/ h-12'>
             <Select
@@ -68,7 +67,6 @@ const PropertySearchBar = () => {
             </div>
             </Form.Item>
 
-            {/* Type Dropdown (Not functional for now) */}
             <Form.Item>
             <Select
                 placeholder="All Types"
@@ -80,7 +78,6 @@ const PropertySearchBar = () => {
             </Select>
             </Form.Item>
 
-            {/* Search Buttons */}
             <Form.Item>
             <Button
                 // eslint-disable-next-line @next/next/no-img-element
@@ -95,14 +92,12 @@ const PropertySearchBar = () => {
                 className='custom-button'
                 type="primary"
                 htmlType="submit"
-                // disabled={!selectedLocation}
                 icon={<SearchOutlined />}
             >
                 Search
             </Button>
             </Form.Item>
 
-            {/* Location Dropdown */}
         </Form>
           </Flex>
         </div>

@@ -1,4 +1,4 @@
-    .selectDropdwn {
+  .selectDropdwn {
     height: 50px !important;
     width: 200px !important;
   }
@@ -14,7 +14,5 @@
   
   .custom-button {
     height: 50px !important;
-    /* display: flex;
-    align-items: center; */
   }
   

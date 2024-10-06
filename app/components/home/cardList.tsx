@@ -15,8 +15,6 @@ const CardList: React.FC = () => {
     ? data?.filter(property => property.location === selectedLocation)
     : data;
 
-  
-
   return (<>
   <List
     loading={isLoading}
